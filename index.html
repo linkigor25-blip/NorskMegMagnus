@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Norsk med Magnus — Pro</title>
+<style>
+:root{
+ --ink:#05060a; --ink2:#0b0d18; --navy:#0e1732; --violet:#26103d;
+ --glass:rgba(18,22,43,.68); --glass-strong:rgba(14,17,34,.88);
+ --matte:rgba(21,26,45,.92); --line:rgba(190,203,255,.16);
+ --text:#f8f9ff; --muted:#aeb8d5; --blue:#5d9cff; --cyan:#55e7ff;
+ --violet2:#9565ff; --pink:#ff4f9a; --gold:#ffd66b; --green:#35d39a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ margin:0;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+ min-height:100vh;overflow-x:hidden;
+ background:
+ radial-gradient(900px 500px at 8% -8%,rgba(72,127,255,.30),transparent 62%),
+ radial-gradient(700px 520px at 96% 4%,rgba(183,68,255,.22),transparent 62%),
+ radial-gradient(800px 600px at 48% 110%,rgba(0,209,255,.12),transparent 65%),
+ linear-gradient(135deg,#030407 0%,#090d1d 42%,#160d28 100%);
+ background-attachment:fixed;
+}
+body:before,body:after{
+ content:"";position:fixed;pointer-events:none;z-index:-1;filter:blur(1px)
+}
+body:before{
+ width:520px;height:520px;border-radius:50%;left:-220px;top:28%;
+ background:radial-gradient(circle,rgba(72,117,255,.11),transparent 68%);
+}
+body:after{
+ width:620px;height:620px;border-radius:50%;right:-290px;bottom:8%;
+ background:radial-gradient(circle,rgba(197,79,255,.09),transparent 68%);
+}
+.app{max-width:1100px;margin:auto;padding:30px 18px 112px}
+.screen{display:none}.screen.active{display:block;animation:screenIn .48s cubic-bezier(.2,.8,.2,1)}
+@keyframes screenIn{from{opacity:0;transform:translateY(14px) scale(.992)}to{opacity:1;transform:none}}
+
+h1{
+ margin:8px 0 10px;font-size:clamp(32px,6vw,52px);line-height:1.02;letter-spacing:-1.8px;
+ background:linear-gradient(110deg,#fff 5%,#d8e6ff 38%,#c8aaff 75%,#fff 110%);
+ -webkit-background-clip:text;background-clip:text;color:transparent;
+ filter:drop-shadow(0 8px 24px rgba(100,130,255,.14));
+}
+h2{letter-spacing:-.7px}.muted{color:var(--muted)}
+
+.card{
+ position:relative;overflow:hidden;margin:15px 0;padding:22px;border-radius:28px;
+ background:
+ linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.008) 30%),
+ linear-gradient(135deg,rgba(24,31,63,.76),rgba(10,13,27,.82));
+ border:1px solid var(--line);
+ box-shadow:0 28px 70px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.09),inset 0 -1px 0 rgba(0,0,0,.20);
+ backdrop-filter:blur(24px) saturate(145%);
+}
+.card:before{
+ content:"";position:absolute;inset:0;pointer-events:none;
+ background:linear-gradient(120deg,rgba(255,255,255,.10),transparent 24%,transparent 74%,rgba(131,120,255,.055));
+}
+.card:after{
+ content:"";position:absolute;width:240px;height:240px;right:-130px;top:-145px;border-radius:50%;
+ background:radial-gradient(circle,rgba(112,140,255,.16),transparent 70%);
+ pointer-events:none;
+}
+.hero{
+ padding:32px;
+ background:
+ radial-gradient(circle at 88% 10%,rgba(255,80,169,.23),transparent 28%),
+ radial-gradient(circle at 12% 100%,rgba(67,154,255,.26),transparent 33%),
+ linear-gradient(135deg,rgba(11,16,35,.92),rgba(37,17,62,.86));
+ border-color:rgba(173,185,255,.22);
+}
+.hero h2{font-size:clamp(24px,4vw,37px);max-width:760px;margin-top:0}
+.hero p{max-width:760px;line-height:1.6}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px}
+.grid .card{
+ margin:0;min-height:150px;
+ background:linear-gradient(145deg,rgba(33,42,82,.72),rgba(15,19,38,.88));
+ transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease;
+}
+.grid .card:hover{transform:translateY(-5px);border-color:rgba(134,163,255,.38);box-shadow:0 30px 65px rgba(0,0,0,.38)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+
+.btn{
+ position:relative;overflow:hidden;padding:14px 19px;border-radius:17px;border:1px solid transparent;
+ color:#fff;font:inherit;font-weight:900;letter-spacing:.2px;cursor:pointer;
+ transition:transform .16s ease,filter .2s ease,box-shadow .2s ease;
+}
+.btn:before{
+ content:"";position:absolute;inset:0;pointer-events:none;
+ background:linear-gradient(110deg,rgba(255,255,255,.22),transparent 30%,transparent 70%,rgba(255,255,255,.08));
+}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn:active{transform:translateY(1px) scale(.985)}
+.primary{
+ background:linear-gradient(135deg,#ff3e87 0%,#b55cff 44%,#5b87ff 100%);
+ box-shadow:0 16px 36px rgba(174,78,255,.26),0 8px 20px rgba(255,60,135,.15),inset 0 1px 0 rgba(255,255,255,.30);
+}
+.secondary{
+ background:linear-gradient(145deg,rgba(72,84,136,.82),rgba(24,29,55,.92));
+ border-color:rgba(184,199,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 25px rgba(0,0,0,.14);
+}
+
+.option{
+ width:100%;position:relative;overflow:hidden;text-align:left;padding:18px;margin:9px 0;border-radius:19px;
+ border:1px solid rgba(173,189,255,.14);color:#fff;cursor:pointer;
+ background:linear-gradient(135deg,rgba(30,38,71,.82),rgba(14,18,35,.94));
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.055),0 10px 24px rgba(0,0,0,.10);
+ transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease,background .2s ease;
+}
+.option:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,rgba(255,255,255,.055),transparent 32%)}
+.option:hover{transform:translateX(5px);border-color:rgba(99,157,255,.58);box-shadow:0 16px 35px rgba(0,0,0,.18),0 0 0 1px rgba(93,156,255,.08)}
+.correct{background:linear-gradient(135deg,rgba(27,139,92,.82),rgba(12,70,53,.92))!important;border-color:var(--green)!important}
+.wrong{background:linear-gradient(135deg,rgba(190,42,83,.82),rgba(79,17,43,.94))!important;border-color:#ff6f9a!important}
+
+.word{
+ position:relative;overflow:hidden;text-align:center;font-size:clamp(30px,6vw,48px);font-weight:950;
+ padding:42px 16px;border-radius:28px;letter-spacing:-1px;
+ background:
+ radial-gradient(circle at 50% 0%,rgba(102,141,255,.18),transparent 48%),
+ linear-gradient(145deg,rgba(31,42,85,.70),rgba(18,13,43,.76));
+ border:1px solid rgba(166,187,255,.17);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 20px 48px rgba(0,0,0,.20);
+ text-shadow:0 8px 30px rgba(94,133,255,.32);
+}
+.translation{font-size:19px;color:#c8d0e8;margin-top:15px}
+.bar{height:13px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.05);border-radius:99px;overflow:hidden;box-shadow:inset 0 2px 8px rgba(0,0,0,.22)}
+.fill{height:100%;background:linear-gradient(90deg,#ff4d91,#c45cff,#658bff,#55e7ff);border-radius:99px;box-shadow:0 0 26px rgba(102,142,255,.58)}
+.score{font-size:44px;font-weight:950;text-align:center;color:var(--gold);text-shadow:0 0 28px rgba(255,214,107,.30)}
+
+.lesson{
+ position:relative;overflow:hidden;padding:19px;border-radius:21px;margin:11px 0;cursor:pointer;
+ background:linear-gradient(145deg,rgba(32,41,79,.86),rgba(16,20,40,.94));
+ border:1px solid var(--line);box-shadow:0 14px 32px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.055);
+ transition:transform .24s ease,border-color .24s ease,box-shadow .24s ease;
+}
+.lesson:hover{transform:translateY(-3px);border-color:rgba(132,161,255,.45);box-shadow:0 22px 48px rgba(0,0,0,.24)}
+.locked{opacity:.42;cursor:not-allowed;filter:saturate(.45)}
+
+.input{
+ width:100%;padding:17px 18px;border-radius:18px;color:#fff;font:inherit;
+ background:rgba(5,8,19,.72);border:1px solid rgba(177,194,255,.16);outline:none;
+ box-shadow:inset 0 2px 10px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.035);
+ transition:border-color .2s ease,box-shadow .2s ease;
+}
+.input:focus{border-color:rgba(103,151,255,.75);box-shadow:0 0 0 5px rgba(93,140,255,.12),inset 0 2px 10px rgba(0,0,0,.20)}
+.rule{
+ padding:16px 17px;margin:13px 0;border-left:4px solid var(--cyan);border-radius:15px;
+ background:linear-gradient(135deg,rgba(28,54,89,.58),rgba(18,20,47,.70));
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.055);
+}
+.tag{display:inline-block;padding:7px 11px;margin:3px;border-radius:99px;font-size:12px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(100,120,205,.38),rgba(80,43,150,.35))}
+.status{
+ padding:16px;border-radius:18px;border:1px solid var(--line);
+ background:linear-gradient(135deg,rgba(27,45,82,.80),rgba(18,20,47,.88));
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+}
+.center{text-align:center}.hidden{display:none}
+
+.nav{
+ position:fixed;z-index:50;left:50%;bottom:14px;transform:translateX(-50%);
+ width:min(790px,calc(100% - 28px));padding:9px;border-radius:26px;
+ display:flex;justify-content:center;gap:4px;
+ background:linear-gradient(135deg,rgba(10,13,28,.84),rgba(32,19,55,.80));
+ border:1px solid rgba(183,195,255,.17);
+ box-shadow:0 26px 65px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.08);
+ backdrop-filter:blur(28px) saturate(150%);
+}
+.nav button{
+ min-width:88px;background:transparent;border:0;color:#aeb8d5;border-radius:18px;padding:10px 13px;
+ cursor:pointer;transition:background .2s ease,color .2s ease,transform .2s ease;
+}
+.nav button:hover{background:linear-gradient(135deg,rgba(94,124,220,.20),rgba(174,75,255,.15));color:#fff;transform:translateY(-2px)}
+
+select{appearance:auto}
+@media(max-width:700px){
+ .app{padding:20px 12px 102px}.card{padding:18px;border-radius:23px}.hero{padding:24px}.word{padding:32px 12px;border-radius:23px}
+ .nav{bottom:7px;width:calc(100% - 12px);border-radius:22px;justify-content:space-around}.nav button{min-width:0;padding:9px 5px;font-size:9px}
+}
+</style></head><body><main class="app">
+
+<section id="home" class="screen active">
+<h1>🇳🇴 Norsk med Magnus</h1>
+<p class="muted">Полноценный курс норвежского: A0 → C2, словарь, грамматика, активное вспоминание, письмо, повторение ошибок, экзамены и речь.</p>
+<div class="card hero"><h2>Учись до результата, а не до конца кнопок.</h2><p class="note">Каждая единица проходит 4 режима: знакомство → норвежский→русский → русский→норвежский → самостоятельный ввод. Ошибки возвращаются в интервальное повторение.</p>
+<button class="btn primary" onclick="continueCourse()">ПРОДОЛЖИТЬ ОБУЧЕНИЕ</button></div>
+<div class="grid"><div class="card">⭐ XP<div id="xp" class="score">0</div></div><div class="card">🔥 Серия<div id="streak" class="score">0</div></div><div class="card">🧠 Освоено<div id="known" class="score">0</div></div><div class="card">🎯 Уровень<div id="lvl" class="score">A0</div></div></div>
+<div class="card"><div class="row"><b>Общий прогресс</b><span id="prog" class="muted"></span></div><div class="bar"><div id="overall" class="fill"></div></div></div>
+<div class="card"><b>Что уже внутри</b><div id="catalogStats" class="note" style="margin-top:8px"></div></div>
+</section>
+
+<section id="course" class="screen"><h1>📚 Учебный путь</h1><p class="muted">Курс открывается по уровням. Каждый модуль нельзя просто «прокликать»: нужен полноценный цикл заданий.</p><div id="courseList"></div></section>
+<section id="practice" class="screen"><h1>🔁 Умное повторение</h1><p class="muted">Здесь появляются ошибки и слова, которые пора повторить. Приоритет — тому, что хуже всего закреплено.</p><div id="practiceList"></div></section>
+<section id="grammar" class="screen"><h1>📖 Грамматика</h1><p class="muted">Краткие правила + живые примеры. Этот раздел будет расширяться вместе с курсом.</p><div id="grammarList"></div></section>
+<section id="speech" class="screen"><h1>🎙️ Произношение</h1>
+<div class="card"><div id="micStatus" class="status">Проверяем возможности микрофона…</div>
+<p><button class="btn secondary" onclick="requestMic()">🎤 ПРОВЕРИТЬ МИКРОФОН</button></p>
+<label class="small muted">Фраза для тренировки</label><select id="speechPhrase" class="input"></select>
+<p><button class="btn secondary" onclick="speak(document.getElementById('speechPhrase').value)">🔊 СЛУШАТЬ ЭТАЛОН</button> <button class="btn primary" id="speakBtn" onclick="startPronunciation()">🎙️ НАЧАТЬ ПРОВЕРКУ</button></p>
+<div id="speechResult"></div></div>
+<div class="card"><b>Как оценивается речь</b><p class="muted">Браузер распознаёт произнесённую норвежскую фразу и сравнивает распознанный текст с эталоном. Это тренировка произношения, а не фонетический экзамен: акцент и качество звука могут влиять на результат.</p></div>
+</section>
+<section id="exam" class="screen"><h1>🏆 Экзамены уровней</h1><p class="muted">Экзамены используют смешанные режимы. Для сдачи — минимум 75%.</p><div id="examList"></div></section>
+
+<section id="lesson" class="screen"><div class="row"><button class="btn secondary" onclick="show('course')">←</button><div><b id="lessonTitle"></b><div id="lessonSub" class="small muted"></div></div><span>⭐ <span id="lessonXP">0</span></span></div><div class="bar" style="margin:14px 0"><div id="lessonBar" class="fill"></div></div><div id="lessonBody"></div></section>
+<section id="finish" class="screen center"><div style="font-size:70px">🎉</div><h1 id="finishTitle">Модуль завершён</h1><p id="finishText" class="muted"></p><div class="score">+<span id="earned"></span> XP</div><div id="finishExtra" class="note"></div><p><button class="btn primary" onclick="show('course')">К УЧЕБНОМУ ПУТИ</button></p></section>
+</main>
+
+<nav id="nav" class="nav">
+<button data-go="home" onclick="show('home')">🏠<br>Главная</button><button data-go="course" onclick="show('course')">📚<br>Курс</button><button data-go="practice" onclick="show('practice')">🔁<br>Повтор</button><button data-go="grammar" onclick="show('grammar')">📖<br>Грамм.</button><button data-go="speech" onclick="show('speech')">🎙️<br>Речь</button><button data-go="exam" onclick="show('exam')">🏆<br>Экзамен</button>
+</nav>
+
+<script>
+const LEVELS={"A0": {"title": "Старт с нуля", "desc": "Первые фразы для жизни в Норвегии", "modules": {"Приветствия и знакомство": [["Hei", "привет"], ["Hallo", "здравствуйте"], ["God morgen", "доброе утро"], ["God kveld", "добрый вечер"], ["Ha det", "пока"], ["Vi ses", "увидимся"], ["Hvordan går det?", "как дела?"], ["Bra, takk", "хорошо, спасибо"], ["Hva heter du?", "как тебя зовут?"], ["Jeg heter ...", "меня зовут ..."], ["Hyggelig å møte deg", "приятно познакомиться"], ["Hyggelig å hilse på deg", "рад знакомству"], ["Hvor kommer du fra?", "откуда ты?"], ["Jeg kommer fra ...", "я из ..."]], "Дом и предметы": [["et hus", "дом"], ["en leilighet", "квартира"], ["et rom", "комната"], ["et bord", "стол"], ["en stol", "стул"], ["en dør", "дверь"], ["et vindu", "окно"], ["en seng", "кровать"], ["en lampe", "лампа"], ["en nøkkel", "ключ"], ["et kjøkken", "кухня"], ["et bad", "ванная"], ["et gulv", "пол"], ["et tak", "потолок"]], "Люди и семья": [["en person", "человек"], ["en mann", "мужчина"], ["en kvinne", "женщина"], ["et barn", "ребёнок"], ["en familie", "семья"], ["en mor", "мать"], ["en far", "отец"], ["en bror", "брат"], ["en søster", "сестра"], ["en venn", "друг"], ["en nabo", "сосед"], ["et navn", "имя"], ["en alder", "возраст"], ["en kjæreste", "партнёр / любимый человек"]], "Числа и время": [["en", "один"], ["to", "два"], ["tre", "три"], ["fire", "четыре"], ["fem", "пять"], ["seks", "шесть"], ["sju", "семь"], ["åtte", "восемь"], ["ni", "девять"], ["ti", "десять"], ["i dag", "сегодня"], ["i morgen", "завтра"], ["i går", "вчера"], ["nå", "сейчас"]]}}, "A1": {"title": "Повседневная жизнь", "desc": "Быт, транспорт, еда и простые разговоры", "modules": {"Еда и покупки": [["mat", "еда"], ["vann", "вода"], ["brød", "хлеб"], ["melk", "молоко"], ["kaffe", "кофе"], ["te", "чай"], ["frokost", "завтрак"], ["lunsj", "обед"], ["middag", "ужин"], ["en butikk", "магазин"], ["en pris", "цена"], ["Hvor mye koster det?", "сколько это стоит?"], ["Kan jeg betale med kort?", "можно оплатить картой?"], ["Jeg vil ha denne", "я хочу вот это"]], "Город и транспорт": [["en buss", "автобус"], ["et tog", "поезд"], ["en bil", "машина"], ["en sykkel", "велосипед"], ["en billett", "билет"], ["en holdeplass", "остановка"], ["en stasjon", "станция"], ["Hvor er ...?", "где находится ...?"], ["Når går bussen?", "когда отправляется автобус?"], ["til høyre", "направо"], ["til venstre", "налево"], ["rett fram", "прямо"], ["Jeg går til ...", "я иду в ..."], ["Jeg må bytte buss", "мне нужно пересесть на другой автобус"]], "Основные действия": [["å være", "быть"], ["å ha", "иметь"], ["å gå", "идти"], ["å komme", "приходить"], ["å bo", "жить"], ["å spise", "есть"], ["å drikke", "пить"], ["å snakke", "говорить"], ["å forstå", "понимать"], ["å lære", "учить"], ["å jobbe", "работать"], ["å sove", "спать"], ["Jeg forstår ikke", "я не понимаю"], ["Kan du snakke saktere?", "можешь говорить медленнее?"]], "Погода и одежда": [["vær", "погода"], ["sol", "солнце"], ["regn", "дождь"], ["snø", "снег"], ["vind", "ветер"], ["kald", "холодный"], ["varm", "тёплый"], ["en jakke", "куртка"], ["en sko", "ботинок"], ["en bukse", "штаны"], ["en genser", "свитер"], ["en paraply", "зонт"], ["Det regner", "идёт дождь"], ["Det er kaldt", "холодно"]], "Тело и здоровье": [["et hode", "голова"], ["en hånd", "рука / кисть"], ["et bein", "нога"], ["en rygg", "спина"], ["en mage", "живот"], ["å være syk", "быть больным"], ["en lege", "врач"], ["et apotek", "аптека"], ["Jeg har vondt", "у меня болит"], ["Jeg trenger en lege", "мне нужен врач"], ["Jeg føler meg bedre", "я чувствую себя лучше"], ["en time", "приём / назначенное время"]]}}, "A2": {"title": "Самостоятельная жизнь", "desc": "Документы, работа, услуги и более длинные фразы", "modules": {"Работа и документы": [["en jobb", "работа"], ["en kollega", "коллега"], ["en sjef", "начальник"], ["et møte", "встреча"], ["en kommune", "муниципалитет / коммуна"], ["en søknad", "заявление"], ["en avtale", "договорённость / назначенная встреча"], ["et dokument", "документ"], ["et skjema", "бланк"], ["en erfaring", "опыт"], ["å søke jobb", "искать работу / подавать заявку"], ["Jeg trenger hjelp", "мне нужна помощь"], ["Kan du forklare det?", "можешь это объяснить?"], ["Jeg har erfaring", "у меня есть опыт"]], "Жильё и быт": [["en utleier", "арендодатель"], ["en husleie", "арендная плата"], ["en kontrakt", "договор"], ["en regning", "счёт"], ["strøm", "электричество"], ["internett", "интернет"], ["å flytte", "переезжать"], ["å betale", "платить"], ["å leie", "арендовать"], ["Jeg leter etter en leilighet", "я ищу квартиру"], ["Når kan jeg flytte inn?", "когда я могу въехать?"], ["Det er noe galt", "что-то не так"], ["Kan du komme og se?", "можешь прийти и посмотреть?"]], "В банке и сервисах": [["en bank", "банк"], ["en konto", "счёт"], ["et bankkort", "банковская карта"], ["en kvittering", "чек"], ["en kundeservice", "служба поддержки"], ["et passord", "пароль"], ["en kode", "код"], ["å bestille", "заказывать"], ["å avbestille", "отменять"], ["å registrere", "регистрировать"], ["Jeg har et spørsmål", "у меня есть вопрос"], ["Kan du hjelpe meg med dette?", "можешь помочь мне с этим?"], ["Jeg har glemt passordet", "я забыл пароль"]], "Связная речь": [["fordi", "потому что"], ["derfor", "поэтому"], ["men", "но"], ["og", "и"], ["eller", "или"], ["hvis", "если"], ["når", "когда"], ["selv om", "хотя"], ["før", "до / прежде чем"], ["etter", "после"], ["for eksempel", "например"], ["Jeg mener at ...", "я считаю, что ..."], ["Det kommer an på", "это зависит от"], ["På grunn av ...", "из-за ..."]], "Свободное время": [["en hobby", "хобби"], ["musikk", "музыка"], ["en film", "фильм"], ["en bok", "книга"], ["en tur", "поход / поездка"], ["å trene", "тренироваться"], ["å reise", "путешествовать"], ["å lage mat", "готовить"], ["å lese", "читать"], ["å høre på", "слушать"], ["Jeg liker å ...", "мне нравится ..."], ["Hva gjør du i helgen?", "что ты делаешь на выходных?"], ["Jeg har lyst til å ...", "мне хочется ..."]]}}, "B1": {"title": "Связная речь", "desc": "Мнения, аргументы и самостоятельное общение", "modules": {"Мнение и аргументы": [["etter min mening", "по моему мнению"], ["jeg tror at", "я думаю, что"], ["jeg mener at", "я считаю, что"], ["jeg er enig", "я согласен"], ["jeg er uenig", "я не согласен"], ["på den ene siden", "с одной стороны"], ["på den andre siden", "с другой стороны"], ["imidlertid", "однако"], ["dessuten", "кроме того"], ["derimot", "напротив / однако"], ["det er viktig å", "важно"], ["jeg vil understreke at", "я хочу подчеркнуть, что"], ["så vidt jeg kan se", "насколько я вижу"], ["det virker som", "кажется, что"]], "Работа и общество": [["et ansvar", "ответственность"], ["en mulighet", "возможность"], ["en utfordring", "трудность / вызов"], ["en løsning", "решение"], ["et samfunn", "общество"], ["en tjeneste", "услуга"], ["en regel", "правило"], ["å utvikle", "развивать"], ["å forbedre", "улучшать"], ["å påvirke", "влиять"], ["å samarbeide", "сотрудничать"], ["å ta ansvar", "брать ответственность"], ["Jeg ønsker å lære mer", "я хочу узнать больше"], ["Det er nødvendig å ...", "необходимо ..."]], "Истории и опыт": [["tidligere", "ранее"], ["nylig", "недавно"], ["etter hvert", "постепенно / со временем"], ["plutselig", "внезапно"], ["vanligvis", "обычно"], ["opprinnelig", "изначально"], ["en opplevelse", "опыт / переживание"], ["en hendelse", "событие"], ["å oppleve", "переживать / испытывать"], ["å huske", "помнить"], ["å forklare", "объяснять"], ["å beskrive", "описывать"], ["Det som skjedde var at ...", "то, что произошло, было следующим:"], ["Jeg har lært at ...", "я понял / узнал, что ..."]], "Проблемы и решения": [["et problem", "проблема"], ["en årsak", "причина"], ["en konsekvens", "последствие"], ["et forslag", "предложение"], ["en forbedring", "улучшение"], ["å løse", "решать"], ["å unngå", "избегать"], ["å vurdere", "рассматривать / оценивать"], ["å foreslå", "предлагать"], ["Jeg foreslår at ...", "я предлагаю, чтобы ..."], ["Hva kan vi gjøre?", "что мы можем сделать?"], ["Dette kan føre til ...", "это может привести к ..."], ["Vi bør finne en løsning", "нам следует найти решение"]]}}, "B2": {"title": "Продвинутый", "desc": "Нюансы, формальные формулировки и сложные конструкции", "modules": {"Нюансы и формулировки": [["så vidt jeg vet", "насколько я знаю"], ["jeg er ikke helt sikker", "я не совсем уверен"], ["det er mulig at", "возможно, что"], ["i forbindelse med", "в связи с"], ["til tross for", "несмотря на"], ["følgelig", "следовательно"], ["dermed", "тем самым"], ["likevel", "тем не менее"], ["påstå", "утверждать"], ["å antyde", "намекать"], ["å forutsette", "предполагать"], ["det fremgår at", "из этого следует / видно, что"], ["i stor grad", "в значительной степени"], ["på forhånd", "заранее"]], "Дискуссия": [["et standpunkt", "позиция / точка зрения"], ["en påstand", "утверждение"], ["et argument", "аргумент"], ["en innvending", "возражение"], ["en begrunnelse", "обоснование"], ["en vurdering", "оценка"], ["å begrunne", "обосновывать"], ["å påpeke", "указывать / отмечать"], ["å innrømme", "признавать"], ["å overbevise", "убеждать"], ["Jeg vil hevde at ...", "я бы утверждал, что ..."], ["Det kan innvendes at ...", "можно возразить, что ..."], ["Et relevant spørsmål er ...", "уместный вопрос: ..."], ["Dette taler for at ...", "это говорит в пользу того, что ..."]], "Учёба и профессия": [["en utdanning", "образование"], ["en kompetanse", "компетенция"], ["en ferdighet", "навык"], ["et arbeidsmiljø", "рабочая среда"], ["en søknadsfrist", "крайний срок подачи заявки"], ["en stilling", "должность"], ["å kvalifisere", "давать квалификацию"], ["å gjennomføre", "осуществлять / проводить"], ["å oppnå", "достигать"], ["å prioritere", "расставлять приоритеты"], ["å tilpasse", "адаптировать"], ["å være kvalifisert", "быть квалифицированным"], ["Jeg ønsker å bidra med ...", "я хочу внести вклад с помощью ..."], ["Det krever både ... og ...", "это требует как ..., так и ..."]]}}, "C1": {"title": "Профессиональный и академический", "desc": "Точная аргументация и формальный язык", "modules": {"Формальная речь": [["å redegjøre for", "подробно излагать"], ["en forutsetning", "предпосылка"], ["en konsekvens", "последствие"], ["i henhold til", "в соответствии с"], ["på bakgrunn av", "на основании"], ["det er avgjørende at", "крайне важно, чтобы"], ["å ta stilling til", "занять позицию по вопросу"], ["å iverksette", "вводить в действие"], ["å omfatte", "охватывать"], ["å fremheve", "подчёркивать"], ["å understreke", "подчёркивать / акцентировать"], ["det foreligger", "имеется / присутствует"], ["med hensyn til", "в отношении"], ["på den bakgrunn", "на этом основании"]], "Анализ и абстракция": [["en sammenheng", "взаимосвязь"], ["en tendens", "тенденция"], ["en utvikling", "развитие"], ["en tilnærming", "подход"], ["en begrensning", "ограничение"], ["en omstendighet", "обстоятельство"], ["å innebære", "включать в себя / означать"], ["å forsterke", "усиливать"], ["å motvirke", "противодействовать"], ["å avdekke", "выявлять"], ["å anta", "предполагать"], ["å sammenligne", "сравнивать"], ["Det tyder på at ...", "это указывает на то, что ..."], ["Det må ses i sammenheng med ...", "это нужно рассматривать в связи с ..."]]}}, "C2": {"title": "Свободное владение", "desc": "Тонкие оттенки, стиль и точность", "modules": {"Точные оттенки": [["å nyansere", "вносить нюансы"], ["underforstått", "подразумеваемый"], ["tvetydig", "двусмысленный"], ["selvmotsigende", "противоречивый"], ["vesentlig", "существенный"], ["marginal", "незначительный"], ["påfallende", "примечательный / бросающийся в глаза"], ["tilsynelatende", "по-видимому / кажущийся"], ["uomtvistelig", "неоспоримый"], ["å presisere", "уточнять"], ["å problematisere", "проблематизировать"], ["å imøtegå", "опровергать / возражать"], ["med andre ord", "другими словами"], ["i ytterste konsekvens", "в крайнем случае"]], "Стиль и идиоматика": [["etter alt å dømme", "судя по всему"], ["i kjølvannet av", "вслед за / на фоне последствий"], ["på godt og vondt", "как в хорошем, так и в плохом смысле"], ["det er på sin plass å", "уместно"], ["å sette fingeren på", "точно указать на проблему"], ["å gå i dybden", "углубиться в тему"], ["å ha noe på hjertet", "иметь что-то важное сказать"], ["å ta høyde for", "учитывать"], ["å komme til uttrykk", "находить выражение"], ["å stå i et spenningsforhold til", "находиться в противоречивом соотношении с"], ["uten videre", "без дальнейших оснований / просто так"], ["i all hovedsak", "в основном"], ["med forbehold om", "с оговоркой"], ["det lar seg vanskelig ...", "это трудно ..."]]}}};
+const GRAMMAR=[["A0 — Порядок слов", "В обычном повествовательном предложении глагол обычно стоит на втором месте: Jeg bor i Norge. — Я живу в Норвегии."], ["A1 — Определённость существительных", "В норвежском неопределённая форма: en bil. Определённая: bilen — машина. У среднего рода: et hus → huset."], ["A1 — Настоящее время", "У большинства глаголов добавляется -r: å snakke → snakker. Jeg snakker norsk."], ["A1 — Вопросы", "В вопросе без вопросительного слова глагол идёт перед подлежащим: Snakker du norsk?"], ["A2 — Прошедшее время", "Многие глаголы имеют прошедшую форму на -et/-te, но сильные глаголы нужно учить отдельно: å være → var → har vært."], ["A2 — Модальные глаголы", "kan, vil, må, skal, bør + инфинитив без å: Jeg kan snakke norsk."], ["B1 — Инверсия после обстоятельства", "Если обстоятельство стоит первым, глагол остаётся вторым: I dag jobber jeg hjemme."], ["B1 — Придаточные", "В придаточных предложениях наречия часто стоят перед глаголом: fordi jeg ikke forstår."], ["B2 — Passiv", "-s-пассив и bli-пассив используются в разных стилях: Døren åpnes. / Døren blir åpnet."], ["C1 — Формальный стиль", "Предпочтение точным связкам и существительным: på bakgrunn av, med hensyn til, i henhold til."], ["C2 — Регистр", "Свободное владение — это не только грамматика, но и выбор естественного регистра: разговорный, нейтральный, формальный."]];
+const order=["A0","A1","A2","B1","B2","C1","C2"];
+const defaultState={xp:0,streak:0,lastDay:"",mastery:{},errors:{},due:{},done:[],exams:{}};
+let state=Object.assign({},defaultState,JSON.parse(localStorage.getItem("norskMagnusPro")||"{}"));
+state.mastery=state.mastery||{};state.errors=state.errors||{};state.due=state.due||{};state.done=state.done||[];state.exams=state.exams||{};
+let active=null,tasks=[],pos=0,earnedXP=0,locked=false,reviewMode=false;
+
+function save(){localStorage.setItem("norskMagnusPro",JSON.stringify(state));}
+function day(){return new Date().toISOString().slice(0,10)}
+function touch(){let d=day();if(state.lastDay!==d){state.streak=state.lastDay?state.streak+1:1;state.lastDay=d;save();}}
+function modules(){let a=[];for(const [level,L] of Object.entries(LEVELS))for(const [name,words] of Object.entries(L.modules))a.push({id:level+"|"+name,level,name,words});return a}
+function allWords(){return modules().flatMap(m=>m.words.map(([no,ru])=>({no,ru,level:m.level,module:m.name,id:no+"|"+ru})))}
+function totalCount(){return allWords().length}
+function unlocked(level){let i=order.indexOf(level);return i===0||!!state.exams[order[i-1]]}
+function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll("[data-go]").forEach(b=>b.classList.toggle("active",b.dataset.go===id));if(id==="home")renderHome();if(id==="course")renderCourse();if(id==="practice")renderPractice();if(id==="grammar")renderGrammar();if(id==="speech"){setupSpeech();checkMicStatus()}if(id==="exam")renderExams();window.scrollTo({top:0,behavior:"smooth"})}
+function continueCourse(){let m=modules().find(m=>unlocked(m.level)&&!state.done.includes(m.id));if(!m){show("exam");return}startModule(m.id)}
+function renderHome(){let words=allWords(),knownN=words.filter(w=>(state.mastery[w.id]||0)>=3).length;xp.textContent=state.xp;streak.textContent=state.streak;known.textContent=knownN;lvl.textContent=order.find(l=>!state.exams[l])||"C2";let p=Math.round(knownN/words.length*100);overall.style.width=p+"%";prog.textContent=`${knownN}/${words.length} закреплено (${p}%)`;catalogStats.textContent=`${words.length} слов, выражений и фраз · ${modules().length} модулей · 7 уровней · ${GRAMMAR.length} грамматических тем.`}
+function renderCourse(){courseList.innerHTML=order.map(level=>{let L=LEVELS[level],open=unlocked(level),ms=modules().filter(m=>m.level===level);return `<div class="card"><div class="row wrap"><div><h2>${level} — ${L.title} ${state.exams[level]?"✅":""}</h2><div class="muted">${L.desc}</div></div><span class="pill">${ms.length} модулей</span></div><div class="divider"></div>${ms.map(m=>{let done=state.done.includes(m.id);return `<div class="lesson ${open?"":"locked"} ${done?"done":""}" ${open?`onclick='startModule(${JSON.stringify(m.id)})'`:""}><div class="row"><div><b>${done?"✅":"📘"} ${m.name}</b><div class="muted">${m.words.length} единиц · 4 режима · контроль ошибок</div></div><span>${open?"→":"🔒"}</span></div></div>`}).join("")}</div>`}).join("")}
+function shuffle(a){let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+function startModule(id){active=modules().find(m=>m.id===id);touch();earnedXP=0;reviewMode=false;lessonTitle.textContent=`${active.level} · ${active.name}`;lessonSub.textContent=`${active.words.length} единиц · обучение по шагам`;tasks=[];const make=(mode,[no,ru])=>({mode,no,ru,key:no+"|"+ru});
+// ВАЖНО: сначала пользователь знакомится СО ВСЕМИ словами, только потом его спрашивают.
+active.words.forEach(w=>tasks.push(make("learn",w)));
+active.words.forEach(w=>tasks.push(make("nr",w)));
+active.words.forEach(w=>tasks.push(make("rn",w)));
+active.words.forEach(w=>tasks.push(make("type",w)));
+active.words.forEach(w=>tasks.push(make("speak",w)));
+pos=0;show("lesson");renderTask()}
+function opts(correct,pool){return shuffle([...new Set([correct,...shuffle(pool.filter(x=>x!==correct)).slice(0,3)])])}
+function renderTask(){locked=false;if(pos>=tasks.length)return finishModule();let t=tasks[pos];lessonBar.style.width=(pos/tasks.length*100)+"%";lessonXP.textContent=earnedXP;const labels={learn:"Этап 1 — знакомство",nr:"Этап 2 — понимание",rn:"Этап 3 — выбор написания",type:"Этап 4 — письмо",speak:"Этап 5 — произношение"};
+lessonSub.textContent=`${labels[t.mode]} · ${pos+1}/${tasks.length}`;
+if(t.mode==="learn")lessonBody.innerHTML=`<div class="card word">🇳🇴 ${t.no}<div class="translation">🇷🇺 ${t.ru}</div><p><button class="btn secondary" onclick='speak(${JSON.stringify(t.no)})'>🔊 СЛУШАТЬ</button></p></div><div class="stage">Этап 1/4 — знакомство с материалом.</div><button class="btn primary" onclick="next()">ДАЛЬШЕ →</button>`;
+else if(t.mode==="nr"){let o=opts(t.ru,active.words.map(x=>x[1]));lessonBody.innerHTML=`<div class="stage">Этап 2/4 — норвежский → русский</div><h2>Что означает?</h2><div class="card word">🇳🇴 ${t.no}</div>${o.map(x=>`<button class="option" onclick='answer(${JSON.stringify(x)},${JSON.stringify(t.ru)},this,${JSON.stringify(t)})'>${x}</button>`).join("")}`}
+else if(t.mode==="rn"){let o=opts(t.no,active.words.map(x=>x[0]));lessonBody.innerHTML=`<div class="stage">Этап 3/4 — русский → норвежский</div><h2>Как сказать по-норвежски?</h2><div class="card word">🇷🇺 ${t.ru}</div>${o.map(x=>`<button class="option" onclick='answer(${JSON.stringify(x)},${JSON.stringify(t.no)},this,${JSON.stringify(t)})'>${x}</button>`).join("")}`}
+else lessonBody.innerHTML=`<div class="stage">Этап 4/4 — самостоятельный ответ</div><h2>Напиши по-норвежски</h2><div class="card word">🇷🇺 ${t.ru}</div><input id="typed" class="input" placeholder="Напиши ответ…" autocomplete="off" autocapitalize="none"><p><button class="btn primary" onclick='checkTyped(${JSON.stringify(t)})'>ПРОВЕРИТЬ</button></p><button class="btn secondary" onclick='speak(${JSON.stringify(t.no)})'>🔊 ПРОСЛУШАТЬ ЭТАЛОН</button>`}
+function norm(s){return String(s).toLowerCase().replace(/[.,!?;:]/g,"").replace(/\s+/g," ").trim()}
+function intervalFor(n){return [0,1,2,4,7,14,30,60][Math.min(n,7)]}
+function good(t,bonus=5){earnedXP+=bonus;let n=(state.mastery[t.key]||0)+1;state.mastery[t.key]=n;delete state.errors[t.key];let due=new Date(Date.now()+intervalFor(n)*86400000).toISOString().slice(0,10);state.due[t.key]=due;save()}
+function bad(t){state.mastery[t.key]=Math.max(0,(state.mastery[t.key]||0)-1);state.errors[t.key]={no:t.no,ru:t.ru,level:active.level,key:t.key};state.due[t.key]=day();save()}
+function answer(g,c,el,t){if(locked)return;locked=true;let bs=[...document.querySelectorAll(".option")];bs.forEach(b=>b.disabled=true);if(g===c){el.classList.add("correct");good(t)}else{el.classList.add("wrong");bs.find(b=>norm(b.textContent)===norm(c))?.classList.add("correct");bad(t)}setTimeout(next,800)}
+function checkTyped(t){if(locked)return;locked=true;let inp=document.getElementById("typed");if(norm(inp.value)===norm(t.no)){inp.classList.add("correct");good(t,7)}else{inp.classList.add("wrong");bad(t);lessonBody.insertAdjacentHTML("beforeend",`<div class="rule">Правильный ответ: <b>${t.no}</b></div>`)}setTimeout(next,1200)}
+
+async function checkLessonPronunciation(t){let R=window.SpeechRecognition||window.webkitSpeechRecognition;const out=document.getElementById("lessonSpeechResult"),btn=document.getElementById("lessonSpeakBtn");if(!R){out.innerHTML="<div class='rule'>Распознавание речи не поддерживается этим браузером.</div>";return}try{let s=await navigator.mediaDevices.getUserMedia({audio:true});s.getTracks().forEach(x=>x.stop())}catch(e){out.innerHTML="<div class='rule'>Разреши доступ к микрофону и попробуй снова.</div>";return}if(btn)btn.disabled=true;let r=new R();r.lang="nb-NO";r.interimResults=false;r.continuous=false;r.maxAlternatives=3;out.innerHTML="<div class='status'>🔴 Слушаю… Говори сейчас.</div>";r.onresult=e=>{let heard=Array.from(e.results).map(x=>x[0].transcript).join(" ").trim();let score=similarity(heard,t.no);let ok=score>=70;out.innerHTML=`<div class="score">${score}%</div><p><b>Распознано:</b> ${heard}</p><p class="muted"><b>Эталон:</b> ${t.no}</p><p>${ok?"Отлично! Идём дальше.":"Почти. Послушай эталон и попробуй ещё раз."}</p>`;if(ok){good(t,8);locked=true;setTimeout(next,1200)}else if(btn){btn.disabled=false}};r.onerror=e=>{out.innerHTML=`<div class='rule'>Ошибка распознавания: <b>${e.error}</b>. Попробуй ещё раз.</div>`;if(btn)btn.disabled=false};r.start()}
+function next(){pos++;renderTask()}
+function finishModule(){if(!reviewMode&&!state.done.includes(active.id))state.done.push(active.id);state.xp+=earnedXP;save();finishTitle.textContent=reviewMode?"Повторение завершено":"Модуль завершён";finishText.textContent=reviewMode?"Слабые места прошли отдельный цикл. Повторяй снова, когда карточки появятся в очереди.":`Ты прошёл ${active.words.length} единиц по полной цепочке: знакомство → смысл → выбор → письмо → произношение.`;earned.textContent=earnedXP;finishExtra.textContent=reviewMode?"":`Экзамен уровня откроется после завершения всех модулей ${active.level}.`;show("finish")}
+function dueWords(){let d=day();return allWords().filter(w=>state.errors[w.id]||((state.mastery[w.id]||0)>0&&state.due[w.id]&&state.due[w.id]<=d)).sort((a,b)=>(state.mastery[a.id]||0)-(state.mastery[b.id]||0))}
+function renderPractice(){let a=dueWords();practiceList.innerHTML=a.length?`<div class="card"><div class="row"><div><b>К повторению сегодня</b><div class="muted">${a.length} карточек</div></div><button class="btn primary" onclick="startReview()">НАЧАТЬ ЦИКЛ</button></div></div>${a.slice(0,25).map(x=>`<div class="lesson"><b>🇳🇴 ${x.no}</b><div class="muted">🇷🇺 ${x.ru} · закрепление: ${state.mastery[x.id]||0}</div></div>`).join("")}`:`<div class="card"><h2>Очередь повторения пуста 👌</h2><p class="muted">Новые слова будут появляться здесь автоматически по мере обучения.</p></div>`}
+function startReview(){let a=dueWords().slice(0,20);if(!a.length)return;active={id:"review",level:"Повторение",name:"Умное повторение",words:a.map(x=>[x.no,x.ru])};touch();earnedXP=0;reviewMode=true;tasks=[];a.forEach(x=>tasks.push({mode:"nr",no:x.no,ru:x.ru,key:x.id}));a.forEach(x=>tasks.push({mode:"rn",no:x.no,ru:x.ru,key:x.id}));a.forEach(x=>tasks.push({mode:"type",no:x.no,ru:x.ru,key:x.id}));a.forEach(x=>tasks.push({mode:"speak",no:x.no,ru:x.ru,key:x.id}));pos=0;lessonTitle.textContent="🔁 Умное повторение";show("lesson");renderTask()}
+function renderGrammar(){grammarList.innerHTML=GRAMMAR.map((x,i)=>`<div class="card"><h2>${x[0]}</h2><div class="muted">${x[1]}</div></div>`).join("")}
+function speak(text){if(!("speechSynthesis" in window))return;let u=new SpeechSynthesisUtterance(text);u.lang="nb-NO";u.rate=.82;speechSynthesis.cancel();speechSynthesis.speak(u)}
+async function checkMicStatus(){let R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!navigator.mediaDevices?.getUserMedia){micStatus.textContent="⚠️ Этот браузер не предоставляет стандартный доступ к микрофону.";return}if(!R){micStatus.textContent="⚠️ Доступ к микрофону возможен, но распознавание речи в этом браузере не поддерживается.";return}try{let p=await navigator.permissions?.query?.({name:"microphone"});micStatus.textContent=p?`🎤 Статус микрофона: ${p.state}`:"🎤 Распознавание речи поддерживается. Нажми «Проверить микрофон».";if(p)p.onchange=checkMicStatus}catch{micStatus.textContent="🎤 Распознавание речи поддерживается. Нажми «Проверить микрофон»."}}
+async function requestMic(){try{let s=await navigator.mediaDevices.getUserMedia({audio:true});s.getTracks().forEach(t=>t.stop());micStatus.textContent="✅ Доступ к микрофону получен. Теперь можно запускать проверку произношения.";micStatus.className="status correct"}catch(e){micStatus.textContent="❌ Нет доступа к микрофону: "+(e.message||e.name)+". Разреши микрофон в настройках браузера и перезагрузи страницу.";micStatus.className="status wrong"}}
+function setupSpeech(){let phrases=allWords().filter(x=>x.no.split(" ").length>=1).map(x=>x.no);speechPhrase.innerHTML=shuffle([...new Set(phrases)]).map(x=>`<option value="${x.replace(/"/g,'&quot;')}">${x}</option>`).join("");if(!speechResult.innerHTML)speechResult.innerHTML="<p class='muted'>Сначала прослушай фразу, затем произнеси её.</p>"}
+function similarity(a,b){a=norm(a);b=norm(b);let m=a.length,n=b.length;if(!m||!n)return 0;let prev=Array.from({length:n+1},(_,j)=>j),cur=new Array(n+1);for(let i=1;i<=m;i++){cur[0]=i;for(let j=1;j<=n;j++)cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));[prev,cur]=[cur,prev]}return Math.max(0,Math.round((1-prev[n]/Math.max(m,n))*100))}
+async function startPronunciation(){let R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R){speechResult.innerHTML="<div class='rule'>Распознавание речи не поддерживается. Открой приложение в Chrome или Edge по HTTPS.</div>";return}try{let s=await navigator.mediaDevices.getUserMedia({audio:true});s.getTracks().forEach(t=>t.stop())}catch(e){speechResult.innerHTML="<div class='rule'>Сначала разреши доступ к микрофону кнопкой «Проверить микрофон».</div>";return}
+let r=new R();r.lang="nb-NO";r.interimResults=true;r.continuous=false;r.maxAlternatives=3;speechResult.innerHTML="<div class='status'>🔴 Слушаю… Говори сейчас.</div>";speakBtn.disabled=true;
+r.onresult=e=>{let heard=Array.from(e.results).map(x=>x[0].transcript).join(" ").trim();if(e.results[e.results.length-1].isFinal){let s=similarity(heard,speechPhrase.value);let msg=s>=90?"Отлично! Очень близко к эталону.":s>=70?"Хорошо. Повтори ещё раз и постарайся сделать фразу ровнее.":"Попробуй медленнее. Сначала ещё раз прослушай эталон.";speechResult.innerHTML=`<div class="score">${s}%</div><p><b>Распознано:</b> ${heard}</p><p class="muted"><b>Эталон:</b> ${speechPhrase.value}</p><p>${msg}</p>`}};
+r.onerror=e=>{speechResult.innerHTML=`<div class='rule'>Ошибка распознавания: <b>${e.error}</b>. Если это not-allowed — проверь разрешение микрофона. Если no-speech — попробуй говорить ближе к микрофону.</div>`;speakBtn.disabled=false};
+r.onend=()=>{speakBtn.disabled=false};r.start()}
+function renderExams(){examList.innerHTML=order.map(level=>{let L=LEVELS[level],ms=modules().filter(m=>m.level===level),ready=ms.every(m=>state.done.includes(m.id)),passed=state.exams[level];return `<div class="card"><div class="row wrap"><div><h2>${level} — ${L.title}</h2><div class="muted">${passed?"Сдан":ready?"Все модули завершены. Экзамен готов.":"Сначала заверши все модули уровня."}</div></div><button class="btn ${ready&&!passed?"primary":"secondary"}" ${ready&&!passed?`onclick="startExam('${level}')`:"disabled"}>${passed?"СДАН":"СДАТЬ ЭКЗАМЕН"}</button></div>`}).join("")}
+function startExam(level){let pool=modules().filter(m=>m.level===level).flatMap(m=>m.words.map(([no,ru])=>({no,ru,key:no+"|"+ru})));let count=Math.min(level==="A0"?24:level==="A1"?30:40,pool.length);let qs=shuffle(pool).slice(0,count),p=0,sc=0,wrong=[];
+examList.innerHTML="<div id='examRun'></div>";function draw(){let w=qs[p],mode=p%3,o=mode===0?opts(w.ru,pool.map(x=>x.ru)):opts(w.no,pool.map(x=>x.no));let head=mode===0?`<h2>🇳🇴 ${w.no}</h2><p>Выбери перевод</p>`:mode===1?`<h2>🇷🇺 ${w.ru}</h2><p>Выбери норвежский вариант</p>`:`<h2>🇷🇺 ${w.ru}</h2><p>Напиши по-норвежски</p>`;examRun.innerHTML=`<div class="card"><p class="muted">Экзамен ${level} · вопрос ${p+1}/${qs.length}</p>${head}${mode<2?o.map(x=>`<button class="option" onclick='window.ea(${JSON.stringify(x)},${JSON.stringify(mode===0?w.ru:w.no)},${JSON.stringify(w)})'>${x}</button>`).join(""):`<input id="examInput" class="input" placeholder="Твой ответ…"><p><button class="btn primary" onclick='window.ea(document.getElementById("examInput").value,${JSON.stringify(w.no)},${JSON.stringify(w)})'>ПРОВЕРИТЬ</button></p>`}</div>`}
+window.ea=(g,c,w)=>{if(norm(g)===norm(c))sc++;else wrong.push(w);p++;if(p<qs.length)draw();else{let pc=Math.round(sc/qs.length*100);if(pc>=75){state.exams[level]=true;state.xp+=50;save();examList.innerHTML=`<div class="card center"><div class="score">${pc}%</div><h2>Уровень ${level} сдан 🎉</h2><p class="muted">Следующий уровень открыт. +50 XP</p></div>`}else{wrong.forEach(w=>state.errors[w.key]=w);save();examList.innerHTML=`<div class="card center"><div class="score">${pc}%</div><h2>Пока не сдан.</h2><p class="muted">Нужно минимум 75%. ${wrong.length} ошибок отправлены в повторение.</p><button class="btn primary" onclick="show('practice')">ПЕРЕЙТИ К ПОВТОРЕНИЮ</button></div>`}}};draw()}
+renderHome();
+</script></body></html>
